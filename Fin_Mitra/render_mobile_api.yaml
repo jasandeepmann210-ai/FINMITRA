@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: finmitra-mobile-api
+    env: python
+    pythonVersion: 3.11.7
+    region: oregon
+    plan: free
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn app_mobile_api:app --bind 0.0.0.0:$PORT --timeout 60
+    
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
+      - key: PYTHONUNBUFFERED
+        value: 1
+    
+    autoDeploy: true

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clear KPMG Session</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: linear-gradient(135deg, #0056A6 0%, #88B5E6 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        h1 {
+            color: #0056A6;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #0056A6;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 10px;
+        }
+        button:hover {
+            background: #003d7a;
+        }
+        .success {
+            color: green;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔧 KPMG Session Cleaner</h1>
+        <p>Click the button below to clear your browser session and cache for the KPMG application.</p>
+        <button onclick="clearSession()">Clear Session & Reload</button>
+        <div id="message"></div>
+    </div>
+
+    <script>
+        function clearSession() {
+            // Clear localStorage
+            localStorage.clear();
+            
+            // Clear sessionStorage
+            sessionStorage.clear();
+            
+            // Show success message
+            document.getElementById('message').innerHTML = '<div class="success">✓ Session cleared! Redirecting to login...</div>';
+            
+            // Redirect to login page after 2 seconds
+            setTimeout(function() {
+                window.location.href = 'http://localhost:8050/';
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
+

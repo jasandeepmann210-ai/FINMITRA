@@ -1,0 +1,99 @@
+/* Dropdown polish */
+.ledger-dropdown .Select-control {
+    border-radius: 8px;
+    min-height: 44px;
+    font-size: 15px;
+}
+
+.ledger-dropdown .Select-placeholder {
+    color: #6c757d;
+}
+
+.ledger-dropdown .Select-menu-outer {
+    max-height: 300px;
+}
+
+.ledger-dropdown .Select-option {
+    padding: 8px 12px;
+    font-size: 14px;
+}
+
+/* Ledger output spacing */
+.ledger-output {
+    padding: 10px;
+}
+
+/* Page background harmony */
+body {
+    background-color: #f8f9fa;
+}
+
+/* Remove default tab border */
+.nav-tabs {
+    border-bottom: none !important;
+}
+
+/* Tabs container spacing */
+.custom-tabs .nav-item {
+    margin-right: 8px;
+}
+
+/* Normal tab */
+.custom-tab {
+    border-radius: 14px !important;
+    padding: 10px 20px !important;
+    background-color: #f8f9fa !important;
+    font-weight: 500;
+    transition: all 0.25s ease;
+    border: none !important;
+}
+
+/* Hover effect */
+.custom-tab:hover {
+    background-color: #e9ecef !important;
+    transform: translateY(-2px);
+}
+
+/* Active tab */
+.custom-tab-active {
+    background: linear-gradient(135deg, #0d6efd, #3da5ff) !important;
+    color: white !important;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(13, 110, 253, 0.3);
+}
+
+/* ===== Dropdown main box (closed state) ===== */
+.Select-control {
+    background-color: #2f4b7c !important;
+    border: 1px solid #4c6ef5 !important;
+    color: white !important;
+}
+
+/* Selected value text */
+.Select-value-label {
+    color: white !important;
+}
+
+/* Dropdown arrow */
+.Select-arrow {
+    border-top-color: white !important;
+}
+
+/* ===== Dropdown popup menu ===== */
+.Select-menu-outer {
+    background-color: white !important;
+    color: #1e293b !important;
+}
+
+/* Dropdown options */
+.Select-option {
+    color: #1e293b !important;
+}
+
+/* Hover option */
+.Select-option.is-focused {
+    background-color: #e2e8f0 !important;
+}
+
+
+

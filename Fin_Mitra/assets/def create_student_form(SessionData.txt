@@ -1,0 +1,646 @@
+def create_student_form(SessionData):
+    return dbc.Card(
+        dbc.CardBody([
+            html.H5("Student Profile Data Entry", className="mb-4", style={"color": "#1B5E20", "fontWeight": "600"}),
+            
+            # Section 1: Student Identification and Personal Details
+            html.Hr(),
+            html.H6("Student Identification and Personal Details", className="mb-3", style={"color": "#388E3C", "fontWeight": "600"}),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Student's AADHAAR Number", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-aadhaar", placeholder="Enter AADHAAR Number", type="text")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Student Name", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-name", placeholder="Enter Student Name", type="text")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Father's Name", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="father-name", placeholder="Enter Father's Name", type="text")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Mother's Name", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="mother-name", placeholder="Enter Mother's Name", type="text")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Date of Birth", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-dob", type="date", placeholder="dd/mm/yyyy")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Gender", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-gender",
+                        options=[
+                            {"label": "Boy", "value": "1"},
+                            {"label": "Girl", "value": "2"},
+                            {"label": "Other", "value": "3"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Caste Category", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-caste",
+                        options=[
+                            {"label": "GEN", "value": "1"},
+                            {"label": "SC", "value": "2"},
+                            {"label": "ST", "value": "3"},
+                            {"label": "OBC", "value": "4"},
+                            {"label": "SBC", "value": "5"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Religion", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-religion",
+                        options=[
+                            {"label": "Hindu", "value": "0"},
+                            {"label": "Muslim", "value": "5"},
+                            {"label": "Christian", "value": "6"},
+                            {"label": "Sikh", "value": "7"},
+                            {"label": "Buddhist", "value": "8"},
+                            {"label": "Jain", "value": "10"},
+                            {"label": "Other", "value": "11"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Mother Tongue/मातृभाषा", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-mother-tongue",
+                        options=[
+                            {"label": "--Select--", "value": "-1"},
+                        
+                            {"label": "Hindi", "value": "4"},
+                            {"label": "English", "value": "19"},
+                            {"label": "Rajasthani", "value": "56"},
+                            {"label": "Urdu", "value": "18"},
+                            {"label": "Sanskrit", "value": "14"},
+                            {"label": "Sindhi", "value": "15"},
+                            {"label": "Punjabi", "value": "13"},
+                            {"label": "Gujarati", "value": "3"},
+                            {"label": "Bengali", "value": "2"},
+                            {"label": "Kannada", "value": "5"},
+                            {"label": "Kashmiri", "value": "6"},
+                            {"label": "Konkani", "value": "7"},
+                            {"label": "Malayalam", "value": "8"},
+                            {"label": "Manipuri", "value": "9"},
+                            {"label": "Marathi", "value": "10"},
+                            {"label": "Nepali", "value": "11"},
+                            {"label": "Oriya", "value": "12"},
+                            {"label": "Tamil", "value": "16"},
+                            {"label": "Telugu", "value": "17"},
+                        
+                            {"label": "Assamese", "value": "1"},
+                            {"label": "Bodo", "value": "20"},
+                            {"label": "Mising", "value": "21"},
+                            {"label": "Dogri", "value": "22"},
+                            {"label": "Khasi", "value": "23"},
+                            {"label": "Garo", "value": "24"},
+                            {"label": "Mizo", "value": "25"},
+                            {"label": "Bhutia", "value": "26"},
+                            {"label": "Lepcha", "value": "27"},
+                            {"label": "Limboo", "value": "28"},
+                        
+                            {"label": "French", "value": "29"},
+                            {"label": "Angami", "value": "41"},
+                            {"label": "Ao", "value": "42"},
+                            {"label": "Arabic", "value": "43"},
+                            {"label": "Bhoti", "value": "44"},
+                            {"label": "Bodhi", "value": "45"},
+                            {"label": "German", "value": "46"},
+                            {"label": "Kakbarak", "value": "47"},
+                            {"label": "Konyak", "value": "48"},
+                            {"label": "Laddakhi", "value": "49"},
+                            {"label": "Lotha", "value": "50"},
+                            {"label": "Maithili", "value": "51"},
+                            {"label": "Nicobaree", "value": "52"},
+                            {"label": "Oriya (Lower)", "value": "53"},
+                            {"label": "Persian", "value": "54"},
+                            {"label": "Portuguese", "value": "55"},
+                            {"label": "Russian", "value": "57"},
+                            {"label": "Sema", "value": "58"},
+                            {"label": "Spanish", "value": "59"},
+                            {"label": "Tibetan", "value": "60"},
+                            {"label": "Zeliang", "value": "61"},
+                        
+                            {"label": "Other Languages", "value": "99"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label("Jan Aadhar No."),
+                    dbc.Input(id="stu-jan-aadhar", placeholder="Enter Jan Aadhar Number", type="text")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Rural/Urban", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-rural-urban",
+                        options=[
+                            {"label": "Rural", "value": "R"},
+                            {"label": "Urban", "value": "U"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Name of Habitation or Locality/पता", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-address", placeholder="Enter Address", type="text")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            # Section 2: Admission and Academic Details
+            html.Hr(),
+            html.H6("Admission and Academic Details", className="mb-3", style={"color": "#388E3C", "fontWeight": "600"}),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Date of Admission", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-admission-date", type="date", placeholder="dd/mm/yyyy")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Admission No. / SR No", html.Span(" *", style={"color": "red"})]),
+                    dbc.Input(id="stu-admission-no", placeholder="Enter Admission Number", type="text")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Whether belong to Below Poverty Line", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-bpl",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Disadvantage Group / Weaker Section", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-disadvantage",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Getting free education as per RTE Act.", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-rte",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Studying in class", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-class",
+                        options=[
+                            {"label": "PP.1", "value": "0"},
+                            {"label": "PP.2", "value": "1"},
+                            {"label": "PP.3+", "value": "2"},
+                            {"label": "Class 1", "value": "3"},
+                            {"label": "Class 2", "value": "4"},
+                            {"label": "Class 3", "value": "5"},
+                            {"label": "Class 4", "value": "6"},
+                            {"label": "Class 5", "value": "7"},
+                            {"label": "Class 6", "value": "8"},
+                            {"label": "Class 7", "value": "9"},
+                            {"label": "Class 8", "value": "10"},
+                            {"label": "Class 9", "value": "11"},
+                            {"label": "Class 10", "value": "12"},
+                            {"label": "Class 11", "value": "13"},
+                            {"label": "Class 12", "value": "14"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Class studied previous year", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-prev-class",
+                        options=[
+                            {"label": "PP.1", "value": "0"},
+                            {"label": "PP.2", "value": "1"},
+                            {"label": "PP.3+", "value": "2"},
+                            {"label": "Class 1", "value": "3"},
+                            {"label": "Class 2", "value": "4"},
+                            {"label": "Class 3", "value": "5"},
+                            {"label": "Class 4", "value": "6"},
+                            {"label": "Class 5", "value": "7"},
+                            {"label": "Class 6", "value": "8"},
+                            {"label": "Class 7", "value": "9"},
+                            {"label": "Class 8", "value": "10"},
+                            {"label": "Class 9", "value": "11"},
+                            {"label": "Class 10", "value": "12"},
+                            {"label": "Class 11", "value": "13"},
+                            {"label": "Class 12", "value": "14"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["if studying in class-1st, give status of previous year", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-class1-status",
+                        options=[
+                            {"label": "NOT APPLICABLE", "value": "0"},
+                            {"label": "Studied in same school", "value": "1"},
+                            {"label": "Studied in other school", "value": "2"},
+                            {"label": "Studied Anganwadi", "value": "3"},
+                            {"label": "Not studied", "value": "4"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label("No. of days child attended school in previous year"),
+                    dbc.Input(id="stu-attendance-days", placeholder="Enter number of days", type="number")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Medium of instruction", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-medium",
+                        options=[
+                            {"label": "English", "value": "19"},
+                            {"label": "Hindi", "value": "4"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            # Section 3: Facilities and Benefits
+            html.Hr(),
+            html.H6("Facilities and Benefits", className="mb-3", style={"color": "#388E3C", "fontWeight": "600"}),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Type of Disability", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-disability",
+                        options=[
+                                {"label": "Not Applicable", "value": "-1"},
+                            
+                                {"label": "Blindness", "value": "1"},
+                                {"label": "Low Vision", "value": "2"},
+                                {"label": "Hearing Impairment", "value": "3"},
+                                {"label": "Speech Impairment", "value": "4"},
+                                {"label": "Locomotor Disability", "value": "5"},
+                            
+                                {"label": "Mental Retardation", "value": "6"},
+                                {"label": "Learning Disability", "value": "7"},
+                                {"label": "Cerebral Palsy", "value": "8"},
+                                {"label": "Autism", "value": "9"},
+                                {"label": "Multiple Disabilities", "value": "10"},
+                            
+                                {"label": "Mental Illness", "value": "12"},
+                                {"label": "Acid Attack Victim", "value": "13"},
+                                {"label": "Dwarfism", "value": "14"},
+                                {"label": "Muscular Dystrophy", "value": "15"},
+                                {"label": "Leprosy Cured Persons", "value": "16"},
+                                {"label": "Parkinson's Disease", "value": "17"},
+                                {"label": "Sickle Cell Disease", "value": "18"},
+                                {"label": "Thalassemia", "value": "19"},
+                                {"label": "Chronic Neurological Conditions", "value": "20"},
+                                {"label": "Hemophilia", "value": "21"},
+                                {"label": "Multiple Sclerosis", "value": "22"}
+                            ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Facilities provided to CWSN (Children With Special Needs)", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-cwsn",
+                        options=[
+                            {"label": "--Select --", "value": "-1"},
+                            {"label": "Not Applicable", "value": "0"},
+                        
+                            {"label": "Braille Books", "value": "1"},
+                            {"label": "Braille Kit", "value": "2"},
+                            {"label": "Low Vision Kit", "value": "3"},
+                            {"label": "Hearing Aid", "value": "4"},
+                            {"label": "Braces", "value": "5"},
+                            {"label": "Crutches", "value": "6"},
+                            {"label": "Wheelchair", "value": "7"},
+                            {"label": "Tricycle", "value": "8"},
+                            {"label": "Caliper", "value": "9"},
+                            {"label": "Others", "value": "10"}
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["No. of uniform sets received", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-uniform",
+                        options=[
+                            {"label": "None", "value": "0"},
+                            {"label": "1", "value": "1"},
+                            {"label": "2", "value": "2"},
+                            {"label": "Partial", "value": "3"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Complete set of free Textbook", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-textbook",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Free Transport facility", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-transport",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Free Bicycle facility", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-bicycle",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Free Escort facility", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-escort",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Whether the child is Mid-day Meal beneficiary", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-midday-meal",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Free Hostel facility", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-hostel",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Whether child attended Special training", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-special-training",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Whether the child is homeless", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-homeless",
+                        options=[
+                            {"label": "With Parent / Guradian", "value": "1"},
+                            {"label": "Without Adult Protection", "value": "2"},
+                            {"label": "NA", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            # Section 4: Academic Performance
+            html.Hr(),
+            html.H6("Academic Performance", className="mb-3", style={"color": "#388E3C", "fontWeight": "600"}),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Appeared in the last year annual examination", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-appeared-exam",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "NA", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Passed in the last year annual examination", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-passed-exam",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "NA", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label("% Marks obtained in last year annual exam (if available)"),
+                    dbc.Input(id="stu-marks", placeholder="Enter percentage", type="number", step="0.01")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Stream (grades 11 & 12)", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-stream",
+                        options=[
+                            {"label": "Science", "value": "1"},
+                            {"label": "Commerce", "value": "2"},
+                            {"label": "Arts", "value": "3"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Trade/Sector (grades 9 to 12)", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-trade",
+                        options=[
+                            {"label": "--Select --", "value": "-1"},
+                            {"label": "Not Applicable", "value": "0"},
+                        
+                            {"label": "Agriculture", "value": "61"},
+                            {"label": "Apparel", "value": "62"},
+                            {"label": "Automotive", "value": "63"},
+                            {"label": "Beauty & Wellness", "value": "64"},
+                            {"label": "Banking Financial Services and Insurance (BFSI)", "value": "65"},
+                            {"label": "Construction", "value": "66"},
+                            {"label": "Electronics", "value": "67"},
+                            {"label": "Healthcare", "value": "68"},
+                            {"label": "IT-ITES", "value": "69"},
+                            {"label": "Logistics", "value": "70"},
+                            {"label": "Capital Goods", "value": "71"},
+                            {"label": "Media & Entertainment", "value": "72"},
+                            {"label": "Multi-Skilling", "value": "73"},
+                            {"label": "Retail", "value": "74"},
+                            {"label": "Security", "value": "75"},
+                            {"label": "Sports", "value": "76"},
+                            {"label": "Telecom", "value": "77"},
+                            {"label": "Tourism & Hospitality", "value": "78"}
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            # Section 5: Health and Contact Information
+            html.Hr(),
+            html.H6("Health and Contact Information", className="mb-3", style={"color": "#388E3C", "fontWeight": "600"}),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Tablets Received Iron & Folic acid", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-iron-folic",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label(["Tablets Received of Deworming", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-deworming",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label(["Tablets Received of Vitamin-A supplement", html.Span(" *", style={"color": "red"})]),
+                    dcc.Dropdown(
+                        id="stu-vitamin-a",
+                        options=[
+                            {"label": "Yes", "value": "1"},
+                            {"label": "No", "value": "2"},
+                            {"label": "Not Applicable", "value": "0"},
+                        ],
+                        placeholder="--Select--"
+                    )
+                ], md=6, className="mb-3"),
+            ]),
+            
+            dbc.Row([
+                dbc.Col([
+                    dbc.Label("Mobile Number"),
+                    dbc.Input(id="stu-mobile", placeholder="Enter Mobile Number", type="tel", pattern="[0-9]{10}")
+                ], md=6, className="mb-3"),
+                dbc.Col([
+                    dbc.Label("Email Address"),
+                    dbc.Input(id="stu-email", placeholder="Enter Email Address", type="email")
+                ], md=6, className="mb-3"),
+            ]),
+            
+            html.Hr(),
+            dbc.Button("Save Student", id="submit-student", color="success", className="mt-3", style={"width": "200px"}),
+            html.Div(id="submit-message", className="mt-3"),
+        ]),
+        className="shadow-sm",
+        style={"borderRadius": "10px", "marginTop": "20px"}
+    )

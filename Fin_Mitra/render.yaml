@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: sheep_FinMitra
+    env: python
+    pythonVersion: 3.11.7
+    region: oregon
+    plan: free
+    buildCommand: pip install --upgrade pip setuptools wheel && pip install -r requirements.txt
+    startCommand: gunicorn app_fin_mitra:server --bind 0.0.0.0:$PORT --timeout 180
+    
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.7
+      - key: PRODUCTION
+        value: 1
+      - key: DEBUG
+        value: 0
+      - key: SHEEPAI_SECRET_KEY
+        generateValue: true
+      - key: SESSION_MINUTES
+        value: 60
+    autoDeploy: true
+

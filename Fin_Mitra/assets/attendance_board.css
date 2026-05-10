@@ -1,0 +1,64 @@
+/* =========================================
+ATTENDANCE BOARD GRID
+========================================= */
+
+.att-grid {
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 13px;
+}
+
+.att-row {
+    display: table-row;
+}
+
+.att-cell {
+    display: table-cell;
+    border: 1px solid #e0e0e0;
+    padding: 6px;
+    text-align: center;
+    min-width: 75px;
+}
+
+/* HEADER */
+
+.att-header {
+    background: #f5f5f5;
+    font-weight: 600;
+}
+
+/* TEACHER COLUMN */
+
+.att-teacher {
+    font-weight: 600;
+    background: #fafafa;
+    text-align: left;
+    padding-left: 10px;
+    min-width: 160px;
+}
+
+/* ATTENDANCE COLORS */
+
+.att-present {
+    background-color: #C8E6C9;
+}
+
+.att-absent {
+    background-color: #FFCDD2;
+}
+
+.att-leave {
+    background-color: #FFE082;
+}
+
+.att-holiday {
+    background-color: #BBDEFB;
+}
+
+/* HOVER */
+
+.att-cell:hover {
+    opacity: 0.85;
+    cursor: pointer;
+}

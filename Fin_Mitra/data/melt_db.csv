@@ -1,0 +1,71 @@
+entry_id,transaction_date,LINE_ITEM,amount,source,GROUP,FS_GROUP
+FEES_20260101205011267880,2026-01-01,Examination Fees,100.0,breakup_cash,Direct Income,I&E
+FEES_20260101205011267880,2026-01-01,Sports / Games Fees,199.0,breakup_bank1,Direct Income,I&E
+FEES_20260101205011267880,2026-01-01,Development Fees,2445.0,breakup_bank2,Direct Income,I&E
+FEES_20260101205019896126,2026-01-01,Examination Fees,100.0,breakup_cash,Direct Income,I&E
+FEES_20260101205019896126,2026-01-01,Sports / Games Fees,199.0,breakup_bank1,Direct Income,I&E
+FEES_20260101205019896126,2026-01-01,Development Fees,2445.0,breakup_bank2,Direct Income,I&E
+OR_20260101205057141007,2026-01-01,Donations,10000.0,breakup_bank1,Indirect Income,I&E
+OR_20260101205057141007,2026-01-01,Loan Received,155566.0,breakup_bank1,Indirect Income,I&E
+EXP_20260101205109896073,2026-01-01,Staff Welfare Expenses,12222.0,breakup_cash,Indirect Expenses,I&E
+EXP_20260101205109896073,2026-01-01,Water Charges,13.0,breakup_cash,Indirect Expenses,I&E
+EXP_20260101205109896073,2026-01-01,Internet & Telephone Expenses,444.0,breakup_bank1,Indirect Expenses,I&E
+SAL_20260101205129887757,2026-01-01,Salary Expense,1224.52,breakup_cash,Indirect Expenses,I&E
+OP_20260101205147255921,2026-01-01,Interest on Loan Paid,12334.0,breakup_bank1,Indirect Expenses,I&E
+MAN_20260101205244950478,2026-01-01,Rameez,500000.0,breakup_bank1,Investments,BS
+FEES_20260101220730464434,2026-01-01,Admission Fees,10000.0,breakup_cash,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Tuition Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Registration Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Examination Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Library Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Laboratory Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Sports / Games Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Transportation Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Uniform Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Activity / Co-curricular Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Development Fees,10000.0,breakup_bank1,Direct Income,I&E
+FEES_20260101220730464434,2026-01-01,Computer / Technology Fees,10000.0,breakup_bank1,Direct Income,I&E
+OR_20260101220801887049,2026-01-01,Interest Income,1000.0,breakup_bank1,Indirect Income,I&E
+OR_20260101220801887049,2026-01-01,Donations,1000.0,breakup_bank1,Indirect Income,I&E
+OR_20260101220801887049,2026-01-01,Inter School Transfer,1000.0,breakup_bank1,Indirect Income,I&E
+OR_20260101220801887049,2026-01-01,Loan Received,1000.0,breakup_bank1,Indirect Income,I&E
+EXP_20260101220842594973,2026-01-01,Salaries & Wages,1000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Teaching Staff Salaries,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Non-Teaching Staff Salaries,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Staff Welfare Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Provident Fund / ESI Contributions,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Recruitment & Training Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Electricity Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Water Charges,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Internet & Telephone Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Fuel & Generator Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Building Rent / Lease Charges,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Repairs & Maintenance,10000.0,breakup_bank1,Indirect Expenses,I&E
+EXP_20260101220842594973,2026-01-01,Furniture & Fixture Expenses,10000.0,breakup_bank1,Indirect Expenses,I&E
+OP_20260101221005969951,2026-01-01,Inter School Transfers,1999.0,breakup_cash,Indirect Expenses,I&E
+OP_20260101221005969951,2026-01-01,Interest on Loan Paid,1999.0,breakup_bank1,Indirect Expenses,I&E
+OP_20260101221005969951,2026-01-01,Bus Installments,1999.0,breakup_bank1,Indirect Expenses,I&E
+OP_20260101221005969951,2026-01-01,Fixed Assets Purchased,1999.0,breakup_bank1,Indirect Expenses,I&E
+OP_20260101221005969951,2026-01-01,Loan Paid,1999.0,breakup_bank2,Indirect Expenses,I&E
+FEES_20260102113740017579,2026-02-01,Admission Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Tuition Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Registration Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Examination Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Library Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Laboratory Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Sports / Games Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Transportation Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Uniform Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Activity / Co-curricular Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Development Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Computer / Technology Fees,1000.0,breakup_cash,Direct Income,I&E
+FEES_20260102113740017579,2026-02-01,Other Fees,1000.0,breakup_cash,Direct Income,I&E
+SAL_20260102114251573943,2026-02-01,Salary Expense,11025.0,breakup_bank1,Indirect Expenses,I&E
+OR_20260109201950319360,2026-09-01,Donations,50000.0,breakup_bank1,Indirect Income,I&E
+EXP_20260109210746635548,2026-07-01,Water Charges,10000.0,breakup_cash,Indirect Expenses,I&E
+EXP_20260109212404060867,2026-05-01,Internet & Telephone Expenses,5000.0,breakup_cash,Indirect Expenses,I&E
+MAN_20260109221020025307,2026-06-01,Dog food,3000.0,breakup_bank1,Indirect Expenses,I&E
+MAN_20260110015802948219,2026-10-01,Vehicles,700000.0,breakup_bank1,Fixed Assets,BS
+MAN_20260110193656319214,2025-01-04,Jay,56000.0,breakup_cash,Sundry debtors,BS
+JV_20260101205156888186,2026-01-01,Advertisement Payable,0.0,Journal Book,,
+JV_20260101221021718456,2026-01-01,Accrued Rent/ Accrued Income,0.0,Journal Book,,

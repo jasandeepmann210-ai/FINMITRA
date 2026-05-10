@@ -1,0 +1,246 @@
+/* Custom button styling for KPMG dashboards */
+.custom-button {
+    border-radius: 8px;
+    border: none;
+    padding: 10px 20px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.custom-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 86, 166, 0.4);
+}
+
+.custom-button-upload {
+    background-color: #0056A6;
+    color: white;
+}
+
+.custom-button-reload {
+    background-color: #88B5E6;
+    color: white;
+}
+
+.custom-button-download {
+    background-color: #0056A6;
+    color: white;
+}
+
+/* Card styling with soft glow */
+.card-container {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 86, 166, 0.1), 0 0 20px rgba(0, 86, 166, 0.05);
+    border: 1px solid #E6EEF9;
+    transition: all 0.3s ease;
+}
+
+.card-container:hover {
+    box-shadow: 0 4px 12px rgba(0, 86, 166, 0.15), 0 0 30px rgba(0, 86, 166, 0.08);
+}
+
+/* Outer card for KPI metrics container */
+.card-outer {
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 2px 10px rgba(0, 86, 166, 0.12), 0 0 25px rgba(0, 86, 166, 0.06);
+    border: 1px solid #d3e0f0;
+}
+
+/* Inner card for individual KPI items */
+.card-inner {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 1px 4px rgba(0, 86, 166, 0.08);
+    border: 1px solid #E6EEF9;
+}
+
+/* Chart card with enhanced glow */
+.card-chart {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 3px 10px rgba(0, 86, 166, 0.12), 0 0 25px rgba(0, 86, 166, 0.06);
+    border: 1px solid #E6EEF9;
+    margin-top: 20px;
+}
+
+/* Professional Date Picker Styling - Single Border Around Entire Component */
+
+/* Remove borders from individual date inputs */
+.DateInput {
+    width: auto !important;
+    flex: 1 !important;
+    background-color: transparent !important;
+    border: none !important;
+}
+
+.DateInput_input {
+    width: 100% !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    padding: 6px 10px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+    font-family: 'Segoe UI', 'Arial', sans-serif !important;
+    color: #333 !important;
+    border: none !important;
+    background-color: transparent !important;
+    transition: all 0.2s ease !important;
+    box-sizing: border-box !important;
+}
+
+.DateInput_input:focus {
+    outline: none !important;
+    background-color: transparent !important;
+}
+
+/* Single border around the entire date range picker */
+.DateRangePickerInput {
+    width: 100% !important;
+    min-width: 220px !important;
+    height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    background-color: #ffffff !important;
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 4px !important;
+    padding: 0 8px !important;
+    box-sizing: border-box !important;
+    transition: all 0.2s ease !important;
+}
+
+.DateRangePickerInput:hover {
+    border-color: #0056A6 !important;
+}
+
+.DateRangePickerInput:focus-within {
+    border-color: #0056A6 !important;
+    box-shadow: 0 0 0 2px rgba(0, 86, 166, 0.1) !important;
+}
+
+.DateRangePickerInput__withBorder {
+    border: 1px solid #d9d9d9 !important;
+    border-radius: 4px !important;
+}
+
+/* Remove any inner borders */
+.DateInput__disabled {
+    background: transparent !important;
+}
+
+/* Arrow between dates */
+.DateRangePickerInput_arrow {
+    padding: 0 6px !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.DateRangePickerInput_arrow_svg {
+    fill: #0056A6 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Hide tooltip fang */
+.DateInput_fang {
+    display: none !important;
+}
+
+/* Calendar icon styling */
+.DateRangePickerInput_calendarIcon {
+    padding: 0 6px !important;
+    margin: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+}
+
+.DateRangePickerInput_calendarIcon_svg {
+    fill: #0056A6 !important;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+/* Clear button if present */
+.DateRangePickerInput_clearDates {
+    padding: 0 6px !important;
+    margin: 0 !important;
+}
+
+.DateRangePickerInput_clearDates_svg {
+    fill: #999 !important;
+    width: 14px !important;
+    height: 14px !important;
+}
+
+/* Radio button styling for better appearance */
+input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #0056A6;
+}
+
+input[type="radio"]:hover {
+    transform: scale(1.1);
+}
+
+/* Radio button labels */
+.radio-item-label {
+    font-size: 13px;
+    color: #333;
+    font-weight: 500;
+    padding: 4px 0;
+    transition: color 0.2s ease;
+}
+
+.radio-item-label:hover {
+    color: #0056A6;
+}
+
+/* User dropdown menu options */
+.dropdown-option:hover {
+    background-color: #f0f7ff !important;
+}
+
+#user-profile-btn:hover {
+    background-color: #f8f9fa;
+}
+
+/* Table action links styling */
+table a {
+    color: #0056A6;
+    text-decoration: underline;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+table a:hover {
+    color: #003d7a;
+    text-decoration: none;
+}
+
+/* 🔥 Force Dash DataTable dropdown to float above everything */
+
+.dash-table-container .Select-menu-outer {
+    display: block !important;
+    position: absolute !important;
+    z-index: 9999 !important;
+}
+
+.dash-table-container .Select-control {
+    overflow: visible !important;
+}
+
+.dash-table-container {
+    overflow: visible !important;
+}
+
+.dash-spreadsheet-container {
+    overflow: visible !important;
+}
