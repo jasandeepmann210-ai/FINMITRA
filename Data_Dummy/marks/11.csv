@@ -1,0 +1,2 @@
+student_id,roll,student_name,section,total_marks,max_marks,percentage,English_Final,English_Final_status,Mathematics_Final,Mathematics_Final_status,Science_Final,Science_Final_status,Computer_Final,Computer_Final_status,SST_Final,SST_Final_status,Sanskrit_Final,Sanskrit_Final_status
+STU_005,stu_005,Test_5,A,300.0,600.0,50.0,50,PASS,50,PASS,50,PASS,50,PASS,50,PASS,50,PASS

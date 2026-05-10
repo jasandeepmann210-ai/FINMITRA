@@ -1,0 +1,10 @@
+student_id,account_name,transaction_date,form_name,total_amount,cash_amount,bank1_amount,details,breakup_cash,breakup_bank1
+STU_001,9844476654/ADM001,2026-01-15,FEES RECEIPT,5000,5000,0,Admission Fee Received,{'Admission Fees': 5000},{}
+STU_001,9844476654/ADM001,2026-02-01,FEES RECEIPT,2500,2500,0,Monthly Fee,{'Tuition Fees': 2500},{}
+STU_001,9844476654/ADM001,2026-03-01,FEES RECEIPT,2500,0,2500,Monthly Fee via Bank,{},{'Tuition Fees': 2500}
+STU_007,9844476654/STU_007,2026-01-20,FEES RECEIPT,3500,3500,0,Admission Fee,{'Admission Fees': 3500},{}
+STU_007,9844476654/STU_007,2026-02-05,FEES RECEIPT,1500,1500,0,Monthly Fee,{'Transport': 500; 'Tuition': 1000},{}
+STU_003,9844476654/STU_003,2026-01-25,FEES RECEIPT,4000,4000,0,Admission+Monthly,{'Admission': 2500; 'Tuition': 1500},{}
+STU_004,9844476654/STU_004,2026-02-10,FEES RECEIPT,2000,0,2000,Monthly Fee via Bank,{},{'Tuition Fees': 2000}
+STU_005,9844476654/STU_005,2026-01-18,FEES RECEIPT,3000,3000,0,Admission Fee,{'Admission Fees': 3000},{}
+STU_006,9844476654/STU_006,2026-02-15,FEES RECEIPT,2500,2500,0,Monthly Fee,{'Tuition Fees': 2500},{}

@@ -1,0 +1,35 @@
+student,admission_no,class,date,status
+Pooja Kumari,STU_001,10,2026-03-07,holiday
+Pooja Kumari,STU_001,10,2026-03-08,present
+Pooja Kumari,STU_001,10,2026-03-09,absent
+Pooja Kumari,STU_001,10,2026-03-10,present
+Pooja Kumari,STU_001,10,2026-03-11,present
+Pooja Kumari,STU_001,10,2026-03-12,present
+Pooja Kumari,STU_001,10,2026-03-13,holiday
+Pooja Kumari,STU_001,10,2026-03-14,holiday
+Pooja Kumari,STU_001,10,2026-03-15,present
+Pooja Kumari,STU_001,10,2026-03-16,present
+Pooja Kumari,STU_001,10,2026-03-17,absent
+Pooja Kumari,STU_001,10,2026-03-18,absent
+Pooja Kumari,STU_001,10,2026-03-19,present
+Pooja Kumari,STU_001,10,2026-03-20,holiday
+Pooja Kumari,STU_001,10,2026-03-21,holiday
+Pooja Kumari,STU_001,10,2026-03-22,present
+Pooja Kumari,STU_001,10,2026-03-23,absent
+Pooja Kumari,STU_001,10,2026-03-24,present
+Test_4,STU_004,10,2026-03-09,present
+Test_4,STU_004,10,2026-03-10,present
+Test_4,STU_004,10,2026-03-11,present
+Test_4,STU_004,10,2026-03-12,present
+Test_4,STU_004,10,2026-03-13,holiday
+Test_4,STU_004,10,2026-03-14,holiday
+Test_4,STU_004,10,2026-03-15,present
+Test_4,STU_004,10,2026-03-16,present
+Test_4,STU_004,10,2026-03-17,absent
+Test_4,STU_004,10,2026-03-18,absent
+Test_4,STU_004,10,2026-03-19,present
+Test_4,STU_004,10,2026-03-20,holiday
+Test_4,STU_004,10,2026-03-21,holiday
+Test_4,STU_004,10,2026-03-22,absent
+Test_4,STU_004,10,2026-03-23,present
+Test_4,STU_004,10,2026-03-24,absent
