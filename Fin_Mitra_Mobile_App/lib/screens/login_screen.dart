@@ -33,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     try {
       // Fetch student_log.csv
-      final allStudents = await fetchCSV("demo", FILE_STUDENTS);
+      final allStudents = await fetchCSV("", FILE_STUDENTS);
       
       // Filter by mobile number
       final childrenList = filterByMobileNumber(allStudents, mobile);
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       // Fetch fees_ledger.csv
       List<Map<String, dynamic>> feeLedger = [];
       try {
-        final allFees = await fetchCSV("demo", FILE_FEES);
+        final allFees = await fetchCSV("", FILE_FEES);
         feeLedger = allFees;
       } catch (_) {}
 
@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
       String schoolInfoName = "School";
       String schoolAddress = "";
       try {
-        final infoRows = await fetchCSV("demo", "school_info.csv");
+        final infoRows = await fetchCSV("", "school_info.csv");
         if (infoRows.isNotEmpty) {
           schoolInfoName = infoRows.first["school_name"]?.toString() ?? "School";
           schoolAddress = infoRows.first["address"]?.toString() ?? "";

@@ -3,7 +3,8 @@ import 'dart:convert';
 import '../config.dart';
 
 Future<List<Map<String, dynamic>>> fetchCSV(String school, String filename) async {
-  final uri = Uri.parse("$BASE_URL/api/v1/read?path=$school/$filename");
+  // Server already anchors requests inside Data_Dummy; don't prefix with "school/"
+  final uri = Uri.parse("$BASE_URL/api/v1/read?path=$filename");
   final response = await http.get(uri, headers: {"X-API-Key": API_KEY});
   if (response.statusCode != 200) throw Exception("Failed to load $filename");
   final jsonBody = jsonDecode(response.body);

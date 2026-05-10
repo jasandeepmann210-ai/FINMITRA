@@ -1,17 +1,27 @@
-# finmitra_application_1
+# FinMitra Mobile App (Flutter)
 
-A new Flutter project.
+This is the **canonical** Flutter app in the repo.
 
-## Getting Started
+## Run
 
-This project is a starting point for a Flutter application.
+From this folder:
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+flutter pub get
+flutter run
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Config
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- `lib/config.dart`:
+  - `BASE_URL`: should point to your Render mobile API service (example: `https://finmitra-msay.onrender.com`)
+
+## API expectations
+
+The mobile API endpoint is:
+
+- `GET /api/v1/read?path=<relative-path-inside-Data_Dummy>`
+
+Examples:
+- `student_log.csv`
+- `marks/7.csv`
