@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../branding_assets.dart';
 import '../config.dart';
 import '../helpers/api_helper.dart';
 import 'student_dashboard.dart';
@@ -119,21 +120,53 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF0F4F8),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(24),
-          child: Card(
-            elevation: 8,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-            child: Padding(
-              padding: const EdgeInsets.all(32),
-              child: ConstrainedBox(
-                constraints: const BoxConstraints(maxWidth: 400),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(Icons.school, size: 60, color: Colors.blue.shade700),
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.asset(
+            kOpeningScreenAsset,
+            fit: BoxFit.cover,
+            errorBuilder: (_, __, ___) => Container(
+              color: const Color(0xFFF0F4F8),
+              alignment: Alignment.center,
+              child: Icon(Icons.image_not_supported_outlined,
+                  size: 48, color: Colors.grey.shade400),
+            ),
+          ),
+          DecoratedBox(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+                  Colors.black.withOpacity(0.12),
+                  Colors.black.withOpacity(0.45),
+                ],
+              ),
+            ),
+          ),
+          SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Card(
+                  elevation: 8,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(32),
+                    child: ConstrainedBox(
+                      constraints: const BoxConstraints(maxWidth: 400),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                    Image.asset(
+                      kAppLogoAsset,
+                      height: 88,
+                      fit: BoxFit.contain,
+                      errorBuilder: (_, __, ___) => Icon(Icons.school,
+                          size: 72, color: Colors.blue.shade700),
+                    ),
                     const SizedBox(height: 12),
                     Text("Fin Mitra",
                         style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold,
@@ -192,12 +225,15 @@ class _LoginScreenState extends State<LoginScreen> {
                       style: TextStyle(fontSize: 12, color: Colors.grey.shade600, fontStyle: FontStyle.italic),
                       textAlign: TextAlign.center,
                     ),
-                  ],
+                        ],
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
