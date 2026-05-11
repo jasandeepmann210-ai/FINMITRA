@@ -87,6 +87,8 @@ class _LoginScreenState extends State<LoginScreen> {
               schoolFolder: mobile,
               schoolAddress: schoolAddress,
               logoUrl: logoUrl,
+              parentMobile: mobile,
+              admissionNo: admNo,
               profileRows: childrenList,
               feeRows: childFees,
               marksRows: [],

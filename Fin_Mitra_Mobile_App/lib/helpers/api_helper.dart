@@ -11,6 +11,36 @@ Future<List<Map<String, dynamic>>> fetchCSV(String school, String filename) asyn
   return List<Map<String, dynamic>>.from(jsonBody["data"]);
 }
 
+/// Attendance rows for the logged-in parent's selected child.
+List<Map<String, dynamic>> filterAttendanceForChild(
+  List<Map<String, dynamic>> rows,
+  String studentName,
+  String admissionNo,
+) {
+  final n = studentName.trim();
+  final a = admissionNo.trim();
+  final filtered = rows.where((row) {
+    final s = row["student"]?.toString().trim() ?? "";
+    final ad = row["admission_no"]?.toString().trim() ?? "";
+    return (n.isNotEmpty && s == n) || (a.isNotEmpty && ad == a);
+  }).toList();
+  filtered.sort((x, y) {
+    final dx = x["date"]?.toString() ?? "";
+    final dy = y["date"]?.toString() ?? "";
+    return dy.compareTo(dx);
+  });
+  return filtered;
+}
+
+/// Non-empty event rows from events.csv
+List<Map<String, dynamic>> filterValidEvents(List<Map<String, dynamic>> rows) {
+  return rows.where((row) {
+    final ev = row["event"]?.toString().trim() ?? "";
+    final dt = row["date"]?.toString().trim() ?? "";
+    return ev.isNotEmpty && dt.isNotEmpty;
+  }).toList();
+}
+
 // student_log.csv — filter by mobile number (parent login)
 List<Map<String, dynamic>> filterByMobileNumber(
     List<Map<String, dynamic>> rows, String mobileNumber) {

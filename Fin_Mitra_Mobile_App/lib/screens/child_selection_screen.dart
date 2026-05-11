@@ -143,6 +143,8 @@ class ChildSelectionScreen extends StatelessWidget {
           schoolFolder: mobileNumber,
           schoolAddress: schoolAddress,
           logoUrl: logoUrl,
+          parentMobile: mobileNumber,
+          admissionNo: admNo,
           profileRows: [child],
           feeRows: childFees,
           marksRows: [],
