@@ -120,38 +120,24 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          Image.asset(
-            kOpeningScreenAsset,
-            fit: BoxFit.fitWidth,
-            alignment: Alignment.topCenter,
-            errorBuilder: (_, __, ___) => Container(
-              color: const Color(0xFFF0F4F8),
-              alignment: Alignment.center,
-              child: Icon(Icons.image_not_supported_outlined,
-                  size: 48, color: Colors.grey.shade400),
-            ),
-          ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20),
-                child: Image.asset(
-                  kAppLogoAsset,
-                  width: 100,
-                  height: 100,
-                  fit: BoxFit.contain,
-                ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Image.asset(
+              kOpeningScreenAsset,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+              errorBuilder: (_, __, ___) => Container(
+                color: const Color(0xFFF0F4F8),
+                alignment: Alignment.center,
+                height: 250,
+                child: Icon(Icons.image_not_supported_outlined,
+                    size: 48, color: Colors.grey.shade400),
               ),
             ),
-          ),
-          SafeArea(
-            child: Align(
-              alignment: Alignment.bottomCenter,
-              child: SingleChildScrollView(
+            SafeArea(
+              top: false,
+              child: Padding(
                 padding: const EdgeInsets.fromLTRB(20, 20, 20, 18),
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 420),
@@ -248,8 +234,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
