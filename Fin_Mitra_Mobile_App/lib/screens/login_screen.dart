@@ -134,6 +134,20 @@ class _LoginScreenState extends State<LoginScreen> {
                   size: 48, color: Colors.grey.shade400),
             ),
           ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: SafeArea(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20),
+                child: Image.asset(
+                  kAppLogoAsset,
+                  width: 100,
+                  height: 100,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+          ),
           SafeArea(
             child: Align(
               alignment: Alignment.bottomCenter,
