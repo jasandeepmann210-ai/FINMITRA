@@ -125,7 +125,8 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           Image.asset(
             kOpeningScreenAsset,
-            fit: BoxFit.cover,
+            fit: BoxFit.fitWidth,
+            alignment: Alignment.topCenter,
             errorBuilder: (_, __, ___) => Container(
               color: const Color(0xFFF0F4F8),
               alignment: Alignment.center,
