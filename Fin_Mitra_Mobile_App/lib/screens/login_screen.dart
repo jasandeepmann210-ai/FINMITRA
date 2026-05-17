@@ -4,6 +4,7 @@ import '../config.dart';
 import '../helpers/api_helper.dart';
 import 'student_dashboard.dart';
 import 'child_selection_screen.dart';
+import 'teacher_login_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -70,7 +71,12 @@ class _LoginScreenState extends State<LoginScreen> {
       if (childrenList.length == 1) {
         final child = childrenList.first;
         final admNo = child["admission_no"]?.toString() ?? "";
-        
+        final studentId = child["student_id"]?.toString() ?? "";
+        final classCode = await resolveClassCodeForStudent(child, studentId, admNo);
+        final assignedTeacher = classCode.isNotEmpty
+            ? await teacherNameForClass(classCode)
+            : null;
+
         // Filter fees for this child
         final childFees = feeLedger
             .where((row) =>
@@ -78,6 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     .startsWith("$mobile/$admNo") ||
                 (row["account_name"]?.toString() ?? "").contains(admNo))
             .toList();
+
+        List<Map<String, dynamic>> marksList = [];
+        try {
+          marksList = await loadMarksForChild(child);
+        } catch (_) {}
 
         Navigator.pushReplacement(
           context,
@@ -90,9 +101,12 @@ class _LoginScreenState extends State<LoginScreen> {
               logoUrl: logoUrl,
               parentMobile: mobile,
               admissionNo: admNo,
+              studentId: studentId,
+              classCode: classCode,
+              assignedTeacher: assignedTeacher,
               profileRows: childrenList,
               feeRows: childFees,
-              marksRows: [],
+              marksRows: marksList,
             ),
           ),
         );
@@ -224,6 +238,23 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       )
                                     : const Text("Login", style: TextStyle(fontSize: 17)),
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          TextButton.icon(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const TeacherLoginScreen(),
+                              ),
+                            ),
+                            icon: Icon(Icons.school, color: Colors.teal.shade700),
+                            label: Text(
+                              "Class teacher login",
+                              style: TextStyle(
+                                color: Colors.teal.shade800,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),

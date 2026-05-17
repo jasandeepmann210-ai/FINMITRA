@@ -36,9 +36,21 @@ The app posts and lists enquiries via:
 - `GET /api/v1/enquiries?parent_mobile=…`
 - `POST /api/v1/enquiries` with JSON: `parent_mobile`, `student_name`, `admission_no`, `message`
 
-Replies are stored in `Data_Dummy/parent_enquiries.json` on the server. Teachers (or admin scripts) can reply with:
+Enquiries and notices use **class code** from `Data_Dummy/school_log.csv` (`class_code` column on each student row).
 
-- `POST /api/v1/enquiries/<id>/reply` with JSON `{ "reply": "…" }` and header `X-Teacher-Key` (default `teacher-demo-key`, override with env `TEACHER_API_KEY` on Render).
+- `Data_Dummy/class_teachers.csv` — class POC + `access_pin`; add `role` column (`teacher` or `admin`)
+- Admin row example: `ADMIN,School Admin,…,admin123,…,admin`
+- Replies stored in `Data_Dummy/parent_enquiries.json`
+
+**Parent app:** Enquiry tab → message goes to that class’s teacher.
+
+**Teacher app:** On login screen tap **Class teacher login** → enter class + PIN (demo: `10A` / `class10a`) → reply to pending enquiries.
+
+API:
+
+- `POST /api/v1/teacher/login` — `{ "class_code", "pin" }`
+- `GET /api/v1/teacher/enquiries?class_code=10A` — headers `X-Class-Code`, `X-Teacher-Pin`
+- `POST /api/v1/enquiries/<id>/reply` — same headers + `{ "reply" }`
 
 After changing `pubspec.yaml`, run `flutter pub get` locally.
 

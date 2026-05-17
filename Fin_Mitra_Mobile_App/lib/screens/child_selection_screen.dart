@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../config.dart';
+import '../helpers/api_helper.dart';
+import 'login_screen.dart';
 import 'student_dashboard.dart';
 
 class ChildSelectionScreen extends StatelessWidget {
@@ -28,6 +30,17 @@ class ChildSelectionScreen extends StatelessWidget {
         backgroundColor: Colors.blue.shade700,
         foregroundColor: Colors.white,
         title: const Text("Select Child"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.logout),
+            tooltip: "Logout",
+            onPressed: () => Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(builder: (_) => const LoginScreen()),
+              (_) => false,
+            ),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
@@ -124,8 +137,8 @@ class ChildSelectionScreen extends StatelessWidget {
     );
   }
 
-  void _selectChild(BuildContext context, int idx,
-      Map<String, dynamic> child, String admNo) {
+  Future<void> _selectChild(BuildContext context, int idx,
+      Map<String, dynamic> child, String admNo) async {
     // Filter fees for this specific child
     final childFees = allFees
         .where((row) =>
@@ -134,7 +147,19 @@ class ChildSelectionScreen extends StatelessWidget {
             (row["account_name"]?.toString() ?? "").contains(admNo))
         .toList();
 
-    Navigator.pushReplacement(
+    List<Map<String, dynamic>> marksList = [];
+    try {
+      marksList = await loadMarksForChild(child);
+    } catch (_) {}
+
+    final studentId = child["student_id"]?.toString() ?? "";
+    final classCode = await resolveClassCodeForStudent(child, studentId, admNo);
+    final assignedTeacher = classCode.isNotEmpty
+        ? await teacherNameForClass(classCode)
+        : null;
+
+    // Keep selection screen on the stack so back returns here without re-login.
+    Navigator.push(
       context,
       MaterialPageRoute(
         builder: (_) => StudentDashboard(
@@ -145,9 +170,12 @@ class ChildSelectionScreen extends StatelessWidget {
           logoUrl: logoUrl,
           parentMobile: mobileNumber,
           admissionNo: admNo,
+          studentId: studentId,
+          classCode: classCode,
+          assignedTeacher: assignedTeacher,
           profileRows: [child],
           feeRows: childFees,
-          marksRows: [],
+          marksRows: marksList,
         ),
       ),
     );

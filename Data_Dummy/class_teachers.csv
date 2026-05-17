@@ -1,0 +1,10 @@
+class_code,teacher_name,teacher_mobile,access_pin,poc_email,role
+ADMIN,School Admin,9800000099,admin123,admin@school.demo,admin
+4c,Ms. Anjali Sharma,9800000001,class4a,anjali.4a@school.demo,teacher
+5b,Mr. Vikram Singh,9800000002,class5b,vikram.5b@school.demo,teacher
+9a,Mrs. Priya Nair,9800000003,class9a,priya.9a@school.demo,teacher
+10b,Mr. Rohit Verma,9876543210,class10a,rohit.verma@example.com,teacher
+10c,Ms. Kavita Rao,9800000004,class12a,kavita.12a@school.demo,teacher
+1b,Ms. Sunita Devi,9800000005,class1b,sunita.1b@school.demo,teacher
+LKGb,Ms. Anjali Bajaj,9800000007,classlkgb,anjali.lkgb@school.demo,teacher
+1a,Ms. Rohini Dutta,9800000006,class1a,rohini.1a@school.demo,teacher

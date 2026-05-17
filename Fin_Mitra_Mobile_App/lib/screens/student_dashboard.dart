@@ -3,8 +3,9 @@ import '../config.dart';
 import '../helpers/api_helper.dart';
 import '../widgets/profile_tab.dart';
 import '../widgets/fee_tab.dart';
-import '../widgets/attendance_tab.dart';
-import '../widgets/events_tab.dart';
+import '../widgets/attendance_calendar_tab.dart';
+import '../widgets/events_calendar_tab.dart';
+import '../widgets/notifications_tab.dart';
 import '../widgets/live_streams_tab.dart';
 import '../widgets/enquiry_tab.dart';
 import 'login_screen.dart';
@@ -20,6 +21,9 @@ class StudentDashboard extends StatefulWidget {
   final String parentMobile;
   /// Selected child's admission number — used for attendance filter.
   final String admissionNo;
+  final String studentId;
+  final String classCode;
+  final String? assignedTeacher;
   final List<Map<String, dynamic>> profileRows;
   final List<Map<String, dynamic>> feeRows;
   final List<Map<String, dynamic>> marksRows;
@@ -33,6 +37,9 @@ class StudentDashboard extends StatefulWidget {
     required this.logoUrl,
     required this.parentMobile,
     required this.admissionNo,
+    required this.studentId,
+    required this.classCode,
+    this.assignedTeacher,
     required this.profileRows,
     required this.feeRows,
     required this.marksRows,
@@ -52,7 +59,7 @@ class _StudentDashboardState extends State<StudentDashboard>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 7, vsync: this);
+    _tabController = TabController(length: 8, vsync: this);
     _loadSideData();
   }
 
@@ -98,6 +105,13 @@ class _StudentDashboardState extends State<StudentDashboard>
       appBar: AppBar(
         backgroundColor: Colors.blue.shade700,
         foregroundColor: Colors.white,
+        leading: Navigator.canPop(context)
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back),
+                tooltip: "Choose another child",
+                onPressed: () => Navigator.pop(context),
+              )
+            : null,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -133,8 +147,9 @@ class _StudentDashboardState extends State<StudentDashboard>
             Tab(icon: Icon(Icons.grade), text: "Report"),
             Tab(icon: Icon(Icons.event_available), text: "Attendance"),
             Tab(icon: Icon(Icons.calendar_month), text: "Events"),
-            Tab(icon: Icon(Icons.live_tv), text: "Live Stream"),
+            Tab(icon: Icon(Icons.live_tv), text: "Streams"),
             Tab(icon: Icon(Icons.forum), text: "Enquiry"),
+            Tab(icon: Icon(Icons.notifications), text: "Notices"),
           ],
         ),
       ),
@@ -149,13 +164,20 @@ class _StudentDashboardState extends State<StudentDashboard>
             schoolAddress: widget.schoolAddress,
             logoUrl: widget.logoUrl,
           ),
-          AttendanceTab(rows: _attendanceRows),
-          EventsTab(rows: _eventRows),
+          AttendanceCalendarTab(rows: _attendanceRows),
+          EventsCalendarTab(rows: _eventRows),
           LiveStreamsTab(rows: _streams),
           EnquiryTab(
             parentMobile: widget.parentMobile,
             studentName: widget.studentName,
+            studentId: widget.studentId,
             admissionNo: widget.admissionNo,
+            classCode: widget.classCode,
+            assignedTeacher: widget.assignedTeacher,
+          ),
+          NotificationsTab(
+            parentMobile: widget.parentMobile,
+            classCode: widget.classCode,
           ),
         ],
       ),

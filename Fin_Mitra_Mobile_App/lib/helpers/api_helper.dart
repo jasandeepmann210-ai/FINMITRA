@@ -61,11 +61,126 @@ List<Map<String, dynamic>> filterFeeByMobileAndAdmNo(
   }).toList();
 }
 
-// Marks — filter by student_id == admNo
-List<Map<String, dynamic>> filterMarksByAdmNo(
-    List<Map<String, dynamic>> rows, String admNo) {
+// Marks — filter by student_id (matches marks/*.csv, not admission_no)
+List<Map<String, dynamic>> filterMarksByStudentId(
+    List<Map<String, dynamic>> rows, String studentId) {
+  final id = studentId.trim();
+  if (id.isEmpty) return [];
   return rows.where((row) {
-    final studentId = row["student_id"]?.toString().trim() ?? "";
-    return studentId == admNo.trim();
+    final sid = row["student_id"]?.toString().trim() ?? "";
+    return sid == id;
   }).toList();
+}
+
+/// Maps studying_class label to marks CSV filenames under Data_Dummy/marks/.
+List<String> marksPathCandidates(String studyingClass) {
+  const wordToFile = {
+    'First': '1',
+    'Second': '2',
+    'Third': '3',
+    'Fourth': '4',
+    'Fifth': '5',
+    'Sixth': '6',
+    'Seventh': '7',
+    'Eighth': '8',
+    'Ninth': '9',
+    'Tenth': '10',
+    'Eleventh': '11',
+    'Twelth': '12',
+    'Twelfth': '12',
+  };
+
+  final paths = <String>[];
+  final c = studyingClass.trim();
+
+  if (wordToFile.containsKey(c)) {
+    paths.add('marks/${wordToFile[c]}.csv');
+  }
+  if (RegExp(r'^\d+$').hasMatch(c)) {
+    paths.add('marks/$c.csv');
+  }
+
+  // Fallback files present in demo Data_Dummy
+  for (final f in ['10', '11', '7', '0']) {
+    final p = 'marks/$f.csv';
+    if (!paths.contains(p)) paths.add(p);
+  }
+  return paths;
+}
+
+/// Loads report-card rows for one child (original FinMitra_Original login flow).
+Future<List<Map<String, dynamic>>> loadMarksForChild(
+    Map<String, dynamic> child) async {
+  final studentId = child["student_id"]?.toString().trim() ?? "";
+  if (studentId.isEmpty) return [];
+
+  final studyingClass = child["studying_class"]?.toString().trim() ?? "";
+  for (final path in marksPathCandidates(studyingClass)) {
+    try {
+      final allMarks = await fetchCSV("", path);
+      final matched = filterMarksByStudentId(allMarks, studentId);
+      if (matched.isNotEmpty) return matched;
+    } catch (_) {
+      continue;
+    }
+  }
+  return [];
+}
+
+/// Normalize class codes for API matching (e.g. "10 B" → "10B").
+String normalizeClassCode(String code) {
+  return code.trim().toUpperCase().replaceAll(' ', '');
+}
+
+/// Class code from school_log.csv / student_log.csv (class_code column).
+Future<String> resolveClassCodeForStudent(
+  Map<String, dynamic>? childRow,
+  String studentId,
+  String admissionNo,
+) async {
+  final fromChild = childRow?["class_code"]?.toString().trim() ?? "";
+  if (fromChild.isNotEmpty) return normalizeClassCode(fromChild);
+
+  final sid = studentId.trim();
+  final adm = admissionNo.trim();
+  for (final file in ["school_log.csv", "student_log.csv"]) {
+    try {
+      final rows = await fetchCSV("", file);
+      for (final row in rows) {
+        final cc = row["class_code"]?.toString().trim() ?? "";
+        if (cc.isEmpty) continue;
+        final rowSid = row["student_id"]?.toString().trim() ?? "";
+        final rowAdm = row["admission_no"]?.toString().trim() ?? "";
+        if (sid.isNotEmpty && rowSid == sid) return normalizeClassCode(cc);
+        if (adm.isNotEmpty && (rowSid == adm || rowAdm == adm)) {
+          return normalizeClassCode(cc);
+        }
+      }
+    } catch (_) {}
+  }
+  return "";
+}
+
+/// Class teacher name for a class code (class_teachers.csv).
+Future<String?> teacherNameForClass(String classCode) async {
+  final cc = normalizeClassCode(classCode);
+  if (cc.isEmpty) return null;
+  try {
+    final rows = await fetchCSV("", "class_teachers.csv");
+    for (final row in rows) {
+      final rowCc = normalizeClassCode(row["class_code"]?.toString() ?? "");
+      if (rowCc == cc) return row["teacher_name"]?.toString();
+    }
+  } catch (_) {}
+  return null;
+}
+
+/// Display label for class code (e.g. 10B → "10 B").
+String displayClassCode(String normalizedCode) {
+  final c = normalizedCode.trim().toUpperCase();
+  if (c.isEmpty) return "";
+  if (c == "ADMIN") return "All school";
+  final m = RegExp(r'^(\d+)([A-Z]+)$').firstMatch(c.replaceAll(' ', ''));
+  if (m != null) return "${m.group(1)} ${m.group(2)}";
+  return c;
 }

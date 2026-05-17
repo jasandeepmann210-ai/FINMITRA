@@ -7,3 +7,4 @@ const String MARKS_FOLDER  = "marks";
 const String FILE_CLASSROOM_STREAMS = "classroom_streams.csv";
 const String FILE_STUDENT_ATTENDANCE = "student_attendance.csv";
 const String FILE_EVENTS = "events.csv";
+const String FILE_SCHOOL_LOG = "school_log.csv";
