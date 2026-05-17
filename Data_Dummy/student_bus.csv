@@ -1,0 +1,7 @@
+student_id,bus_id,pickup_stop,drop_stop
+STU_001,BUS-A,Malviya Nagar Stop,School Main Gate
+STU_007,BUS-A,Vaishali Nagar,School Main Gate
+STU_003,BUS-B,C-Scheme Stop,School Main Gate
+STU_004,BUS-B,Bani Park,School Main Gate
+STU_005,BUS-B,Raja Park,School Main Gate
+STU_006,BUS-B,Jhotwara,School Main Gate

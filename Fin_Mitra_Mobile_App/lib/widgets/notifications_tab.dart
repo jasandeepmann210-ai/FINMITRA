@@ -77,6 +77,7 @@ class _NotificationsTabState extends State<NotificationsTab> {
                 final n = _items[i];
                 final scope = n["scope"]?.toString() ?? "";
                 final isAll = scope == "all";
+                final isBus = scope == "bus";
                 final cc = n["class_code"]?.toString() ?? "";
                 return Card(
                   child: Padding(
@@ -87,8 +88,12 @@ class _NotificationsTabState extends State<NotificationsTab> {
                         Row(
                           children: [
                             Icon(
-                              isAll ? Icons.campaign : Icons.class_,
-                              color: isAll ? Colors.indigo : Colors.teal,
+                              isBus
+                                  ? Icons.directions_bus
+                                  : (isAll ? Icons.campaign : Icons.class_),
+                              color: isBus
+                                  ? Colors.orange.shade800
+                                  : (isAll ? Colors.indigo : Colors.teal),
                               size: 20,
                             ),
                             const SizedBox(width: 8),
@@ -103,7 +108,9 @@ class _NotificationsTabState extends State<NotificationsTab> {
                             ),
                             Chip(
                               label: Text(
-                                isAll ? "All parents" : displayClassCode(cc),
+                                isBus
+                                    ? "Bus"
+                                    : (isAll ? "All parents" : displayClassCode(cc)),
                                 style: const TextStyle(fontSize: 10),
                               ),
                               visualDensity: VisualDensity.compact,

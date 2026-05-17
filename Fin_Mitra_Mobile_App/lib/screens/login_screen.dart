@@ -5,6 +5,7 @@ import '../helpers/api_helper.dart';
 import 'student_dashboard.dart';
 import 'child_selection_screen.dart';
 import 'teacher_login_screen.dart';
+import 'driver_login_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -254,6 +255,22 @@ class _LoginScreenState extends State<LoginScreen> {
                               "Class teacher login",
                               style: TextStyle(
                                 color: Colors.teal.shade800,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          TextButton.icon(
+                            onPressed: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => const DriverLoginScreen(),
+                              ),
+                            ),
+                            icon: Icon(Icons.directions_bus, color: Colors.orange.shade800),
+                            label: Text(
+                              "Bus driver login",
+                              style: TextStyle(
+                                color: Colors.orange.shade900,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),

@@ -8,6 +8,7 @@ import '../widgets/events_calendar_tab.dart';
 import '../widgets/notifications_tab.dart';
 import '../widgets/live_streams_tab.dart';
 import '../widgets/enquiry_tab.dart';
+import '../widgets/bus_tracking_tab.dart';
 import 'login_screen.dart';
 import 'report_card_tab.dart';
 
@@ -59,7 +60,7 @@ class _StudentDashboardState extends State<StudentDashboard>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 8, vsync: this);
+    _tabController = TabController(length: 9, vsync: this);
     _loadSideData();
   }
 
@@ -150,6 +151,7 @@ class _StudentDashboardState extends State<StudentDashboard>
             Tab(icon: Icon(Icons.live_tv), text: "Streams"),
             Tab(icon: Icon(Icons.forum), text: "Enquiry"),
             Tab(icon: Icon(Icons.notifications), text: "Notices"),
+            Tab(icon: Icon(Icons.directions_bus), text: "Bus"),
           ],
         ),
       ),
@@ -178,6 +180,10 @@ class _StudentDashboardState extends State<StudentDashboard>
           NotificationsTab(
             parentMobile: widget.parentMobile,
             classCode: widget.classCode,
+          ),
+          BusTrackingTab(
+            studentId: widget.studentId,
+            studentName: widget.studentName,
           ),
         ],
       ),

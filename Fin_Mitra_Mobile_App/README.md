@@ -38,6 +38,37 @@ The app posts and lists enquiries via:
 
 Enquiries and notices use **class code** from `Data_Dummy/school_log.csv` (`class_code` column on each student row).
 
+## School bus tracking (driver phone = GPS)
+
+No separate GPS device. The **driver logs in on their phone**, taps **Start route**, and the app sends that phone’s location to parents. When a child gets off, the driver taps **Got off** and the parent is notified.
+
+**Data**
+
+- `buses.csv` — `bus_id`, route, driver, `access_pin`
+- `student_bus.csv` — student → bus, stops
+- `bus_locations.json` — active trip + last phone GPS (written by driver app)
+- `bus_events.json` — alight history
+
+**Driver (login screen → Bus driver login)**
+
+- Demo: `BUS-A` / `busa123`, `BUS-B` / `busb123`
+- Start route → share location (needs location permission + GPS on)
+- **Got off** per student → parent **Notices** + Bus tab alert
+
+**Parent**
+
+- Child dashboard → **Bus** tab (map when driver has started route and location is available)
+
+**API** (headers for driver: `X-Bus-Id`, `X-Driver-Pin`)
+
+- `POST /api/v1/driver/login`
+- `POST /api/v1/driver/trip/start` · `POST /api/v1/driver/trip/end`
+- `POST /api/v1/driver/location` — `{ "lat", "lng" }`
+- `POST /api/v1/driver/alight` — `{ "student_id" }`
+- `GET /api/v1/bus/status?student_id=…` — parent view
+
+Run `flutter pub get` (adds `geolocator`, `flutter_map`, etc.). Deploy updated `app_mobile_api.py` to Render.
+
 - `Data_Dummy/class_teachers.csv` — class POC + `access_pin`; add `role` column (`teacher` or `admin`)
 - Admin row example: `ADMIN,School Admin,…,admin123,…,admin`
 - Replies stored in `Data_Dummy/parent_enquiries.json`

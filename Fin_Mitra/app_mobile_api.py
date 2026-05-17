@@ -24,6 +24,14 @@ def _notifications_path() -> Path:
     return DATA_DIR / "parent_notifications.json"
 
 
+def _bus_locations_path() -> Path:
+    return DATA_DIR / "bus_locations.json"
+
+
+def _bus_events_path() -> Path:
+    return DATA_DIR / "bus_events.json"
+
+
 def _load_json_list(path: Path) -> list:
     if not path.exists():
         return []
@@ -90,6 +98,153 @@ def _class_code_for_student(student_id: str, admission_no: str) -> str:
             if adm and (row_sid == adm or str(row.get("admission_no", "")).strip() == adm):
                 return _normalize_class_code(cc)
     return ""
+
+
+def _student_ids_for_parent_mobile(mobile: str) -> set:
+    m = str(mobile or "").strip()
+    ids = set()
+    for filename in _student_log_files():
+        for row in _read_csv_rows(filename):
+            if str(row.get("mobile", "")).strip() != m:
+                continue
+            sid = str(row.get("student_id", "")).strip()
+            if sid:
+                ids.add(sid)
+    return ids
+
+
+def _bus_assignment(student_id: str):
+    sid = str(student_id or "").strip()
+    if not sid:
+        return None
+    for row in _read_csv_rows("student_bus.csv"):
+        if str(row.get("student_id", "")).strip() == sid:
+            bus_id = str(row.get("bus_id", "")).strip()
+            bus_row = None
+            for b in _read_csv_rows("buses.csv"):
+                if str(b.get("bus_id", "")).strip() == bus_id:
+                    bus_row = b
+                    break
+            return {
+                "student_id": sid,
+                "bus_id": bus_id,
+                "pickup_stop": row.get("pickup_stop", ""),
+                "drop_stop": row.get("drop_stop", ""),
+                "route_name": bus_row.get("route_name", "") if bus_row else "",
+                "vehicle_no": bus_row.get("vehicle_no", "") if bus_row else "",
+                "driver_name": bus_row.get("driver_name", "") if bus_row else "",
+                "driver_mobile": bus_row.get("driver_mobile", "") if bus_row else "",
+            }
+    return None
+
+
+def _load_bus_locations() -> dict:
+    path = _bus_locations_path()
+    if not path.exists():
+        return {}
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
+
+
+def _save_bus_locations(locations: dict) -> None:
+    path = _bus_locations_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(locations, f, indent=2, ensure_ascii=False)
+
+
+def _load_bus_events() -> list:
+    return _load_json_list(_bus_events_path())
+
+
+def _save_bus_events(items: list) -> None:
+    _save_json_list(_bus_events_path(), items)
+
+
+def _bus_row_for(bus_id: str, pin: str):
+    bid = str(bus_id or "").strip().upper()
+    p = str(pin or "").strip()
+    if not bid or not p:
+        return None
+    for row in _read_csv_rows("buses.csv"):
+        if str(row.get("bus_id", "")).strip().upper() != bid:
+            continue
+        if str(row.get("access_pin", "")).strip() != p:
+            continue
+        return row
+    return None
+
+
+def _auth_driver():
+    bus_id = str(request.headers.get("X-Bus-Id", "")).strip().upper()
+    pin = str(request.headers.get("X-Driver-Pin", "")).strip()
+    row = _bus_row_for(bus_id, pin)
+    if not row:
+        return None, (jsonify({"error": "Invalid bus ID or driver PIN"}), 401)
+    return row, None
+
+
+def _bus_state(bus_id: str) -> dict:
+    locations = _load_bus_locations()
+    state = locations.get(bus_id, {})
+    if not isinstance(state, dict):
+        state = {}
+    return state
+
+
+def _set_bus_state(bus_id: str, state: dict) -> None:
+    locations = _load_bus_locations()
+    locations[bus_id] = state
+    _save_bus_locations(locations)
+
+
+def _student_name(student_id: str) -> str:
+    sid = str(student_id or "").strip()
+    for filename in _student_log_files():
+        for row in _read_csv_rows(filename):
+            if str(row.get("student_id", "")).strip() == sid:
+                return str(row.get("student_name", "")).strip()
+    return ""
+
+
+def _roster_for_bus(bus_id: str, trip_id: str = "") -> list:
+    bid = str(bus_id or "").strip().upper()
+    state = _bus_state(bid)
+    alighted = set(state.get("alighted_student_ids") or [])
+    roster = []
+    for row in _read_csv_rows("student_bus.csv"):
+        if str(row.get("bus_id", "")).strip().upper() != bid:
+            continue
+        sid = str(row.get("student_id", "")).strip()
+        roster.append({
+            "student_id": sid,
+            "student_name": _student_name(sid) or sid,
+            "pickup_stop": row.get("pickup_stop", ""),
+            "drop_stop": row.get("drop_stop", ""),
+            "alighted": sid in alighted,
+        })
+    roster.sort(key=lambda x: x.get("student_name", ""))
+    return roster
+
+
+def _notify_parent_bus_event(student_id: str, title: str, message: str) -> None:
+    items = _load_notifications()
+    items.append({
+        "id": str(uuid.uuid4()),
+        "scope": "bus",
+        "student_id": student_id,
+        "class_code": "",
+        "title": title,
+        "message": message,
+        "posted_by": "Bus tracking",
+        "posted_by_role": "system",
+        "created_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+    })
+    _save_notifications(items)
 
 
 def _class_codes_for_parent_mobile(mobile: str) -> set:
@@ -330,6 +485,7 @@ def list_notifications():
         return jsonify({"error": "parent_mobile or class_code required"}), 400
 
     parent_classes = _class_codes_for_parent_mobile(mobile) if mobile else set()
+    parent_students = _student_ids_for_parent_mobile(mobile) if mobile else set()
     if class_code:
         parent_classes.add(class_code)
 
@@ -339,6 +495,11 @@ def list_notifications():
         scope = str(n.get("scope", "")).strip().lower()
         if scope == "all":
             visible.append(n)
+            continue
+        if scope == "bus":
+            sid = str(n.get("student_id", "")).strip()
+            if sid and sid in parent_students:
+                visible.append(n)
             continue
         ncc = _normalize_class_code(n.get("class_code", ""))
         if ncc and ncc in parent_classes:
@@ -421,6 +582,239 @@ def teacher_list_notifications():
     return jsonify({"notifications": visible})
 
 
+# --- School bus tracking (driver phone GPS + alight marks) ---
+
+@app.route("/api/v1/driver/login", methods=["POST"])
+def driver_login():
+    body = request.get_json(silent=True) or {}
+    bus_id = str(body.get("bus_id", "")).strip().upper()
+    pin = str(body.get("pin", "")).strip()
+    row = _bus_row_for(bus_id, pin)
+    if not row:
+        return jsonify({"error": "Invalid bus ID or PIN"}), 401
+    state = _bus_state(bus_id)
+    return jsonify({
+        "bus_id": bus_id,
+        "route_name": row.get("route_name", ""),
+        "vehicle_no": row.get("vehicle_no", ""),
+        "driver_name": row.get("driver_name", ""),
+        "trip_active": bool(state.get("trip_active")),
+        "trip_id": state.get("trip_id", ""),
+    })
+
+
+@app.route("/api/v1/driver/trip", methods=["GET"])
+def driver_trip_status():
+    """Driver: current trip + roster."""
+    row, err = _auth_driver()
+    if err:
+        return err
+    bus_id = str(row.get("bus_id", "")).strip().upper()
+    state = _bus_state(bus_id)
+    trip_id = str(state.get("trip_id", ""))
+    return jsonify({
+        "bus_id": bus_id,
+        "route_name": row.get("route_name", ""),
+        "trip_active": bool(state.get("trip_active")),
+        "trip_id": trip_id,
+        "trip_started_at": state.get("trip_started_at", ""),
+        "location": {
+            "lat": state.get("lat"),
+            "lng": state.get("lng"),
+            "updated_at": state.get("updated_at", ""),
+        },
+        "roster": _roster_for_bus(bus_id, trip_id),
+    })
+
+
+@app.route("/api/v1/driver/trip/start", methods=["POST"])
+def driver_trip_start():
+    """Driver starts route — parents can track phone GPS."""
+    row, err = _auth_driver()
+    if err:
+        return err
+    bus_id = str(row.get("bus_id", "")).strip().upper()
+    state = _bus_state(bus_id)
+    if state.get("trip_active"):
+        return jsonify({"error": "Route already active. End it first or continue."}), 400
+    trip_id = str(uuid.uuid4())
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    state = {
+        "trip_active": True,
+        "trip_id": trip_id,
+        "trip_started_at": now,
+        "alighted_student_ids": [],
+        "lat": None,
+        "lng": None,
+        "updated_at": None,
+    }
+    _set_bus_state(bus_id, state)
+    return jsonify({"bus_id": bus_id, "trip_id": trip_id, "trip_active": True})
+
+
+@app.route("/api/v1/driver/trip/end", methods=["POST"])
+def driver_trip_end():
+    row, err = _auth_driver()
+    if err:
+        return err
+    bus_id = str(row.get("bus_id", "")).strip().upper()
+    state = _bus_state(bus_id)
+    state["trip_active"] = False
+    state["trip_ended_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    _set_bus_state(bus_id, state)
+    return jsonify({"bus_id": bus_id, "trip_active": False})
+
+
+@app.route("/api/v1/driver/location", methods=["POST"])
+def driver_post_location():
+    """Driver phone GPS while route is active."""
+    row, err = _auth_driver()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    try:
+        lat = float(body.get("lat"))
+        lng = float(body.get("lng"))
+    except (TypeError, ValueError):
+        return jsonify({"error": "lat and lng required"}), 400
+
+    bus_id = str(row.get("bus_id", "")).strip().upper()
+    state = _bus_state(bus_id)
+    if not state.get("trip_active"):
+        return jsonify({"error": "Start the route before sharing location"}), 400
+
+    state["lat"] = lat
+    state["lng"] = lng
+    state["updated_at"] = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+    _set_bus_state(bus_id, state)
+    return jsonify({
+        "bus_id": bus_id,
+        "lat": lat,
+        "lng": lng,
+        "updated_at": state["updated_at"],
+    })
+
+
+@app.route("/api/v1/driver/alight", methods=["POST"])
+def driver_mark_alight():
+    """Driver marks a child got off the bus — notifies parent."""
+    row, err = _auth_driver()
+    if err:
+        return err
+    body = request.get_json(silent=True) or {}
+    student_id = str(body.get("student_id", "")).strip()
+    stop_name = str(body.get("stop_name", "")).strip()
+
+    if not student_id:
+        return jsonify({"error": "student_id required"}), 400
+
+    assignment = _bus_assignment(student_id)
+    if not assignment:
+        return jsonify({"error": "Student not on a bus"}), 404
+
+    bus_id = str(row.get("bus_id", "")).strip().upper()
+    if str(assignment.get("bus_id", "")).strip().upper() != bus_id:
+        return jsonify({"error": "Student is not on your bus"}), 403
+
+    state = _bus_state(bus_id)
+    if not state.get("trip_active"):
+        return jsonify({"error": "Start the route before marking students"}), 400
+
+    alighted = list(state.get("alighted_student_ids") or [])
+    if student_id in alighted:
+        return jsonify({"error": "Already marked off the bus"}), 400
+
+    if not stop_name:
+        stop_name = assignment.get("drop_stop", "") or assignment.get("pickup_stop", "")
+
+    student_name = _student_name(student_id)
+    trip_id = str(state.get("trip_id", ""))
+    now = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())
+
+    entry = {
+        "id": str(uuid.uuid4()),
+        "student_id": student_id,
+        "student_name": student_name,
+        "bus_id": bus_id,
+        "trip_id": trip_id,
+        "event_type": "alight",
+        "stop_name": stop_name,
+        "at": now,
+    }
+    events = _load_bus_events()
+    events.append(entry)
+    _save_bus_events(events)
+
+    alighted.append(student_id)
+    state["alighted_student_ids"] = alighted
+    _set_bus_state(bus_id, state)
+
+    label = student_name or "Your child"
+    _notify_parent_bus_event(
+        student_id,
+        f"{label} got off the bus",
+        f"{label} got off at {stop_name}.",
+    )
+    return jsonify({"event": entry, "roster": _roster_for_bus(bus_id, trip_id)}), 201
+
+
+@app.route("/api/v1/bus/status", methods=["GET"])
+def bus_status():
+    """Parent: driver's live phone location + alight history for one child."""
+    student_id = str(request.args.get("student_id", "")).strip()
+    if not student_id:
+        return jsonify({"error": "student_id required"}), 400
+
+    assignment = _bus_assignment(student_id)
+    if not assignment:
+        return jsonify({
+            "assigned": False,
+            "student_id": student_id,
+            "message": "No school bus assigned for this student.",
+        })
+
+    bus_id = str(assignment["bus_id"]).strip().upper()
+    state = _bus_state(bus_id)
+    trip_active = bool(state.get("trip_active"))
+    lat = state.get("lat")
+    lng = state.get("lng")
+    has_location = lat is not None and lng is not None
+
+    if not trip_active:
+        status_label = "Route not started"
+    elif not has_location:
+        status_label = "Waiting for driver location"
+    else:
+        status_label = "On route"
+
+    location = {}
+    if trip_active and has_location:
+        location = {
+            "lat": lat,
+            "lng": lng,
+            "updated_at": state.get("updated_at", ""),
+        }
+
+    events = _load_bus_events()
+    student_events = [
+        e for e in events
+        if str(e.get("student_id", "")).strip() == student_id
+        and str(e.get("event_type", "")).lower() == "alight"
+    ]
+    student_events.sort(key=lambda x: x.get("at", ""), reverse=True)
+    recent = student_events[:10]
+
+    return jsonify({
+        "assigned": True,
+        "assignment": assignment,
+        "trip_active": trip_active,
+        "location": location,
+        "status_label": status_label,
+        "recent_events": recent,
+        "last_event": recent[0] if recent else None,
+    })
+
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"status": "ok", "service": "FinMitra Mobile API"})
@@ -434,6 +828,13 @@ def home():
             "/api/v1/read": "CSV read",
             "/api/v1/enquiries": "Parent enquiries",
             "/api/v1/notifications": "Announcements GET/POST",
+            "/api/v1/bus/status": "Parent bus tracking GET",
+            "/api/v1/driver/login": "Bus driver login",
+            "/api/v1/driver/trip": "Driver trip + roster GET",
+            "/api/v1/driver/trip/start": "Start route POST",
+            "/api/v1/driver/trip/end": "End route POST",
+            "/api/v1/driver/location": "Driver phone GPS POST",
+            "/api/v1/driver/alight": "Mark child off bus POST",
             "/api/v1/teacher/login": "Teacher or admin login",
         }
     })
